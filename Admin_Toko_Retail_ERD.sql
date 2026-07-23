@@ -1,3 +1,4 @@
+--DDL ERD
 CREATE TABLE customer (
     customer_id VARCHAR2(14) NOT NULL
 );
@@ -63,8 +64,9 @@ ALTER TABLE transaksi
     ADD CONSTRAINT transaksi_produk_fk FOREIGN KEY ( produk_produk_id )
         REFERENCES produk ( produk_id );
 -------------------------------------------------------------------------------------------------------------------------------
+
 -- ERD Query
---5 Sederhana
+--3 Sederhana
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
@@ -81,7 +83,7 @@ SET TIMING ON;
 SELECT AVG(jumlah) AS rata_rata_kuantitas 
 FROM detail_transaksi;
 
---5 menengah
+--3 menengah
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
@@ -102,7 +104,7 @@ FROM detail_transaksi dt
 JOIN transaksi t ON dt.transaksi_transaksi_id = t.transaksi_id 
 WHERE t.produk_produk_id = 'P001';
 
---5 Kompleks
+--3 Kompleks
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
