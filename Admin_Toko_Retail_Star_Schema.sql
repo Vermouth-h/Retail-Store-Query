@@ -1,3 +1,4 @@
+--DDL Star Schema
 CREATE TABLE customer (
     customer_key   NUMBER NOT NULL,
     customer_id    VARCHAR2(14) NOT NULL
