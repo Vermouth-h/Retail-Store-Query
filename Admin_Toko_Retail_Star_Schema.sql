@@ -71,8 +71,9 @@ ALTER TABLE transaksi
     ADD CONSTRAINT transaksi_waktu_fk FOREIGN KEY ( waktu_waktu_key )
         REFERENCES waktu ( waktu_key );
 -------------------------------------------------------------------------------
+
 -- Star Schema Query
---5 Sederhana
+--3 Sederhana
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
@@ -89,7 +90,7 @@ SET TIMING ON;
 SELECT AVG(jumlah) AS rata_rata_kuantitas 
 FROM transaksi;
 
---5 Menengah
+--3 Menengah
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
@@ -109,7 +110,7 @@ SELECT SUM(jumlah) AS kuantitas_produk
 FROM transaksi 
 WHERE produk_produk_key = 1;
 
---5 Kompleks
+--3 Kompleks
 --1.
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
