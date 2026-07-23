@@ -1,4 +1,4 @@
---DDL ERD
+--DDL ERD--
 CREATE TABLE customer (
     customer_id VARCHAR2(14) NOT NULL
 );
