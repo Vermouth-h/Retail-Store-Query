@@ -1,43 +1,99 @@
+-- Reset Run ke 1
+UNDEFINE run;
+-- Matiin old new
+SET VERIFY OFF;
+SET FEEDBACK OFF;
+-- Hidupin old new 
+SET VERIFY ON;
+SET FEEDBACK ON;
+-------------------------------------------------------------------------------
+
 -- Star Schema Query
---3 Sederhana
+
+----- 3 Sederhana -----
 --1.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT SUM(total_harga) AS total_pendapatan 
 FROM transaksi;
+SET TIMING OFF;
+
 --2.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT MAX(total_harga) AS penjualan_tertinggi, MIN(total_harga) AS penjualan_terendah 
 FROM transaksi;
+SET TIMING OFF;
+
 --3.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT AVG(jumlah) AS rata_rata_kuantitas 
 FROM transaksi;
+SET TIMING OFF;
 
---3 Menengah
---1.
+----- 3 Menengah -----
+--1. (Revisi)
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT COUNT(transaksi_id) AS trx_barang_mahal 
 FROM transaksi 
 WHERE harga_barang > 50000;
+SET TIMING OFF;
+
 --2.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT SUM(total_harga) AS pendapatan_toko 
 FROM transaksi 
 WHERE lokasi_pembelian_lp_key = 1;
+SET TIMING OFF;
+
 --3.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT SUM(jumlah) AS kuantitas_produk 
 FROM transaksi 
 WHERE produk_produk_key = 1;
+SET TIMING OFF;
 
---3 Kompleks
+----- 3 Kompleks -----
 --1.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT p.produk, SUM(f.total_harga) AS total_pendapatan, SUM(f.jumlah) AS total_barang 
@@ -46,7 +102,14 @@ JOIN produk p ON f.produk_produk_key = p.produk_key
 JOIN waktu w ON f.waktu_waktu_key = w.waktu_key 
 WHERE w.tahun = 2023 
 GROUP BY p.produk;
+SET TIMING OFF;
+
 --2.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT l.lokasi_pembelian, AVG(f.total_harga) AS rata_penjualan FROM transaksi f 
@@ -54,7 +117,14 @@ JOIN lokasi_pembelian l ON f.lokasi_pembelian_lp_key = l.lp_key
 JOIN metode_pembayaran m ON f.metode_pembayaran_metode_key = m.metode_key 
 WHERE m.metode_pembayaran = 'Cash' 
 GROUP BY l.lokasi_pembelian;
+SET TIMING OFF;
+
 --3.
+COLUMN current_run NEW_VALUE run NOPRINT;
+SELECT NVL('&run', 0) + 1 AS current_run FROM dual;
+PROMPT ========================================
+PROMPT >>> QUERY RUN - &run
+PROMPT ========================================
 ALTER SYSTEM FLUSH BUFFER_CACHE;
 SET TIMING ON;
 SELECT p.produk, m.metode_pembayaran, SUM(f.total_harga) AS total_pendapatan 
